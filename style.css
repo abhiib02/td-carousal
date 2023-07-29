@@ -1,0 +1,58 @@
+   body {
+       display: grid;
+       place-items: center;
+       height: 100vh;
+   }
+
+   .td-carousel-wrapper {
+       display: grid;
+       place-items: center;
+   }
+
+   .td-item {
+       position: absolute;
+       width: 400px;
+       height: 400px;
+       scale: 0;
+       display: grid;
+       place-items: center;
+       transition: all .3s ease;
+   }
+
+   .td-active {
+       scale: 1;
+       z-index: 10;
+
+       & img {
+           width: 100%;
+           height: 100%;
+       }
+   }
+
+   .td-active-p {
+       scale: .7;
+       transform-origin: center;
+       translate: -60%;
+       z-index: 1;
+
+       & img {
+           width: 100%;
+           height: 100%;
+       }
+   }
+
+   .td-active-n {
+       scale: .7;
+       transform-origin: center;
+       translate: 60%;
+       z-index: 1;
+
+       & img {
+           width: 100%;
+           height: 100%;
+       }
+   }
+
+   .hide {
+       display: none;
+   }
