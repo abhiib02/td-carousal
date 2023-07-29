@@ -1,76 +1,12 @@
-<style>
-      body{
-    display:grid;
-  place-items:center;
-  height:100vh;
-}
-.td-carousel-wrapper{
-display:grid;
-  place-items:center;
-}
-.td-item{
-  position:absolute;
-  width:400px;
-  height:400px;
-  scale:0;
-  display:grid;
-  place-items:center;
-  transition:all .3s ease;
-   filter:grayscale(1);
-}
-
-.td-active{
-  scale:1;
-  z-index:10;
-   filter:grayscale(0);
-  & img{
-    width:100%;
-    height:100%;
-  }
-}
-.td-active-p{
-  scale:.7;
-  transform-origin:center;
-  translate:-60%;
-  z-index:1;
-   & img{
-    width:100%;
-    height:100%;
-  }
-}
-.td-active-n{
-  scale:.7;
-  transform-origin:center;
-  translate:60%;
-  z-index:1;
-   & img{
-    width:100%;
-    height:100%;
-  }
-  }
-.indicator{
-  display:flex;
-  width:300px;
-}
-.nav_light{
-  width:auto;
-  flex-grow:1;
-  height:5px;
-  background:black;
-}
-.indicate{
-   transform:scaley(2);
-  background:orange;
-}
-.hide{
-  display:none;
-}
-</style>
-
-
-
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <div class="td-carousel-wrapper">
   <div class="td-item">
     <img src="https://picsum.photos/300/300" alt="">
@@ -107,127 +43,16 @@ display:grid;
 <button class="td-btn-next" >next</button>
   </div>
 
-
+<script src="td-carousal.js"></script>
 
 <script>
-
-  function tdcarousal({
-  slideElement,
-  slideNextBtn,
-  slidePrevBtn,
-  indicator,
-}){
-    let items = document.querySelectorAll(slideElement);
-    let nextBtn = document.querySelector(slideNextBtn);
-    let prevBtn = document.querySelector(slidePrevBtn);
-    let navigation_indicator = document.querySelector(indicator);
-    let totalSlide = document.querySelector('.totalSlide');
-    let currentSlide = document.querySelector('.currentSlide');
-    let indicators_array;
-    var state = 0;
-      /* iife */
-    (function init(){
-    items.forEach((item,index)=>{
-      item.classList.remove('td-active-p');
-      item.classList.remove('td-active');
-      item.classList.remove('td-active-n');
-      let nav_light = document.createElement('span');
-      nav_light.classList.add('nav_light');
-      navigation_indicator.appendChild(nav_light);
-     }) 
-    state=1;
-      totalSlide.textContent=items.length;
-      setCurrentSlide(state);
-      indicatorGlow(state);
-    (items[state-1] !== undefined) ? items[state-1].classList.add('td-active-p'):'';
-    items[state].classList.add('td-active');
-    (items[state+1]!== undefined) ? items[state+1].classList.add('td-active-n'):''; 
-    })();
-      /* iife */
-    function indicatorGlow(state){
-      
-      for(let i=0;i<items.length;i++){
-        navigation_indicator.children[i].classList.remove('indicate');
-      }
-      navigation_indicator.children[state].classList.add('indicate');
-    }
-  
-    function setCurrentSlide(state){
-      currentSlide.textContent=state+1;
-    }
-    function nextfinal(){
-          items.forEach((item)=>{
-            item.classList.remove('td-active-p');
-            item.classList.remove('td-active');
-            item.classList.remove('td-active-n');
-          })
-
-      state=0;
-          (items[state-1] !== undefined) ? items[state-1].classList.add('td-active-p'):'';
-          items[state].classList.add('td-active');
-          (items[state+1]!== undefined) ? items[state+1].classList.add('td-active-n'):'';
-
-    }
-    function prevfinal(){
-          items.forEach((item)=>{
-            item.classList.remove('td-active-p');
-            item.classList.remove('td-active');
-            item.classList.remove('td-active-n');
-          })
-
-      state = items.length-1;
-
-          (items[state-1] !== undefined) ? items[state-1].classList.add('td-active-p'):'';
-          items[state].classList.add('td-active');
-          (items[state+1]!== undefined) ? items[state+1].classList.add('td-active-n'):'';
-
-    }
-    function next(){
-      
-      if(state < items.length-1){
-          (items[state-1] !== undefined)?items[state-1].classList.remove('td-active-p'):'';
-          items[state].classList.remove('td-active');
-          (items[state+1]!== undefined) ? items[state+1].classList.remove('td-active-n'):'';
-          state=state+1;
-          (items[state-1] !== undefined)?items[state-1].classList.add('td-active-p'):'';
-          items[state].classList.add('td-active');
-          (items[state+1]!== undefined) ? items[state+1].classList.add('td-active-n'):'';
-      }
-      else{
-         nextfinal();
-      }
-      indicatorGlow(state);
-      setCurrentSlide(state);
-    }
-    function prev(){
-
-      if(state >0){
-          (items[state-1] !== undefined) ? items[state-1].classList.remove('td-active-p'):'';
-          items[state].classList.remove('td-active');
-          (items[state+1]!== undefined) ? items[state+1].classList.remove('td-active-n'):'';
-          state=state-1;
-          (items[state-1] !== undefined) ? items[state-1].classList.add('td-active-p'):'';
-          items[state].classList.add('td-active');
-           (items[state+1]!== undefined) ? items[state+1].classList.add('td-active-n'):'';
-      }
-      else{
-         prevfinal();
-      }
-      indicatorGlow(state);
-      setCurrentSlide(state);
-    }
-    
-    nextBtn.addEventListener('click',()=>{next()});
-    prevBtn.addEventListener('click',()=>{prev()});
-  }
-
-var tdcarousal = tdcarousal({
+tdcarousal({
   slideElement:".td-item",
   slideNextBtn:".td-btn-next",
   slidePrevBtn:".td-btn-prev",
   indicator:".indicator",
 }); 
 
-  
 </script>
-
+  </body>
+  </html>
